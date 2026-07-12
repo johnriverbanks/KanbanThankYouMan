@@ -1,0 +1,9 @@
+[package]
+name = "KanbanThankYouMan"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+eframe = "0.35.0"
+egui = "0.35.0"
+uuid = { version = "1.23.4", features = ["v4"] }
