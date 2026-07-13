@@ -67,17 +67,17 @@ impl NewTaskForm {
 
                 ui.horizontal(|ui| {
                     if ui.button("Cancel").clicked() {
-                        window_status = self.cancel();
+                        self.cancel();
+                        window_status = WindowStatus::Close;
                     }
 
                     if ui.button("Create").clicked() {
-                        let task = self.create_task(
-                            board, WindowStatus::Close);
+                        self.create_task(board);
+                        window_status = WindowStatus::Close;
                     }
 
                     if ui.button("Create More").clicked() {
-                        let task = self.create_task(
-                            board, WindowStatus::Open);
+                        self.create_task(board);
                     }
                 })
             });
@@ -105,10 +105,8 @@ impl NewTaskForm {
         WindowStatus::Close
     }
 
-    fn create_task(&mut self, board: &mut Board, status: WindowStatus) -> WindowStatus {
-        let task = self.build_task();
-        board.add_task(task);
-        status
+    fn create_task(&mut self, board: &mut Board,) {
+        board.add_task(self.build_task());
     }
 
     fn build_task(&mut self) -> Task {
