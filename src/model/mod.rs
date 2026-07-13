@@ -1,6 +1,6 @@
-pub(crate) mod board;
-pub(crate) mod column;
-pub(crate) mod difficulty;
-pub(crate) mod task;
-pub(crate) mod task_id;
-pub(crate) mod task_draft;
+pub mod board;
+pub mod column;
+pub mod difficulty;
+pub mod task;
+pub mod task_id;
+pub mod task_draft;

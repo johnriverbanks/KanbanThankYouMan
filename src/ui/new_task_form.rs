@@ -107,7 +107,7 @@ impl NewTaskForm {
         self.notes.clear();
     }
 
-    fn cancel(&mut self) -> WindowStatus {
+    fn cancel(&mut self) {
         self.clear();
     }
 

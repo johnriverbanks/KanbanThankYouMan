@@ -15,13 +15,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d04b5b9e-07fe-4b51-a6c4-4da1dcc25ee3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/model/task_draft.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/task_id.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commands/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/board.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/board.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/task.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/task.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui/new_task_form.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/new_task_form.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -204,7 +199,7 @@
       <workItem from="1783792428619" duration="2863000" />
       <workItem from="1783795324441" duration="245000" />
       <workItem from="1783795587676" duration="676000" />
-      <workItem from="1783796289371" duration="58272000" />
+      <workItem from="1783796289371" duration="58367000" />
     </task>
     <servers />
   </component>
