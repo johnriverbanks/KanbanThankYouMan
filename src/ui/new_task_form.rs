@@ -71,15 +71,13 @@ impl NewTaskForm {
                     }
 
                     if ui.button("Create").clicked() {
-                        let task = self.build_task();
-                        board.add_task(task);
-                        window_status = WindowStatus::Close;
+                        let task = self.create_task(
+                            board, WindowStatus::Close);
                     }
 
                     if ui.button("Create More").clicked() {
-                        let task = self.build_task();
-                        board.add_task(task);
-                        window_status = WindowStatus::Open;
+                        let task = self.create_task(
+                            board, WindowStatus::Open);
                     }
                 })
             });
@@ -107,24 +105,22 @@ impl NewTaskForm {
         WindowStatus::Close
     }
 
+    fn create_task(&mut self, board: &mut Board, status: WindowStatus) -> WindowStatus {
+        let task = self.build_task();
+        board.add_task(task);
+        status
+    }
+
     fn build_task(&mut self) -> Task {
         let difficulty = std::mem::replace(
             &mut self.difficulty,
             Difficulty::Unknown,
         );
-        let task = Task::new(
-            &self.title,
-            &self.problem_url,
+        Task::new(
+            std::mem::take(&mut self.title),
+            std::mem::take(&mut self.problem_url),
             difficulty,
-            &self.project_path,
-        );
-        self.clear();
-        task
-    }
-
-    fn create_task(&mut self, board: &mut Board, status: WindowStatus) -> WindowStatus {
-        let task = self.build_task();
-        board.add_task(task);
-        status
+            std::mem::take(&mut self.project_path),
+        )
     }
 }

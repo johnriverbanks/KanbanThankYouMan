@@ -25,17 +25,16 @@ impl Task {
     }
 
     pub fn new(
-        title: &str,
-        problem_url: &str,
+        title: String,
+        problem_url: String,
         difficulty: Difficulty,
-        project_path: &str,
+        project_path: String,
     ) -> Self {
         Self {
-            title: title.to_string(),
-            problem_url: problem_url.to_string(),
+            title,
+            problem_url,
             difficulty,
-            project_path: project_path.to_string(),
+            project_path,
         }
     }
 }
-
