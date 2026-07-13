@@ -1,13 +1,14 @@
 use crate::model::board::Board;
 use crate::ui::window_status::WindowStatus;
 use crate::model::difficulty::Difficulty;
-use crate::model::task::Task;
+use crate::model::task_draft::TaskDraft;
 
 pub struct NewTaskForm {
     title: String,
     problem_url: String,
     difficulty: Difficulty,
     project_path: String,
+    notes: String,
 }
 
 impl NewTaskForm {
@@ -61,6 +62,10 @@ impl NewTaskForm {
                         ui.label("Project Path");
                         ui.text_edit_singleline(&mut self.project_path);
                         ui.end_row();
+
+                        ui.label("Notes");
+                        ui.text_edit_singleline(&mut self.notes);
+                        ui.end_row();
                     });
 
                 ui.separator();
@@ -90,6 +95,7 @@ impl NewTaskForm {
             problem_url: String::new(),
             difficulty: Difficulty::Unknown,
             project_path: String::new(),
+            notes: String::new(),
         }
     }
 
@@ -98,27 +104,28 @@ impl NewTaskForm {
         self.problem_url.clear();
         self.difficulty = Difficulty::Unknown;
         self.project_path.clear();
+        self.notes.clear();
     }
 
     fn cancel(&mut self) -> WindowStatus {
         self.clear();
-        WindowStatus::Close
     }
 
     fn create_task(&mut self, board: &mut Board,) {
-        board.add_task(self.build_task());
+        board.add_task(self.build_task_draft());
     }
 
-    fn build_task(&mut self) -> Task {
+    fn build_task_draft(&mut self) -> TaskDraft {
         let difficulty = std::mem::replace(
             &mut self.difficulty,
             Difficulty::Unknown,
         );
-        Task::new(
-            std::mem::take(&mut self.title),
-            std::mem::take(&mut self.problem_url),
+        TaskDraft {
+            title: std::mem::take(&mut self.title),
+            problem_url: std::mem::take(&mut self.problem_url),
             difficulty,
-            std::mem::take(&mut self.project_path),
-        )
+            project_path: std::mem::take(&mut self.project_path),
+            notes: String::new(),
+        }
     }
 }
