@@ -15,32 +15,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d04b5b9e-07fe-4b51-a6c4-4da1dcc25ee3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/board.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/colour.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commands/board_commands.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commands/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/board.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/column.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/difficulty.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/task.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/storage/json.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/storage/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/board.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/column.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/new_task_form.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/task_card.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/task_editor.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/window_status.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/new_task_form.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/new_task_form.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,59 +45,59 @@
     <decayedCancelled>
       <entry key="MS100" value="1.0" />
       <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.000001187783413" />
-      <entry key="S5" value="1.0162337484068904" />
-      <entry key="S10" value="1.4237246043788456" />
-      <entry key="S30" value="4.897530212503337" />
-      <entry key="S60" value="8.01971077691047" />
-      <entry key="M2" value="11.791929226269842" />
-      <entry key="M5" value="24.397216588667103" />
-      <entry key="M10" value="48.198440275456555" />
-      <entry key="M15" value="66.07775883628199" />
-      <entry key="M30" value="101.81550847907118" />
-      <entry key="H1" value="156.2570880331498" />
-      <entry key="H2" value="242.30617085209403" />
-      <entry key="H4" value="355.9326432766858" />
-      <entry key="D1" value="663.9379277881153" />
-      <entry key="W1" value="806.5540105300543" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.000000008746647" />
+      <entry key="S60" value="1.0002372421309162" />
+      <entry key="M2" value="1.0428408109581104" />
+      <entry key="M5" value="2.2750839124291775" />
+      <entry key="M10" value="6.235367853678458" />
+      <entry key="M15" value="10.078391903809841" />
+      <entry key="M30" value="20.41945571664052" />
+      <entry key="H1" value="50.74633478301285" />
+      <entry key="H2" value="128.7854248469904" />
+      <entry key="H4" value="259.918921356479" />
+      <entry key="D1" value="649.0849843711737" />
+      <entry key="W1" value="830.1833850063607" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="2.5881237448224123E-196" />
-      <entry key="S2" value="1.2683708701376085E-49" />
-      <entry key="S5" value="2.762475937038984E-20" />
-      <entry key="S10" value="1.662069775021189E-10" />
-      <entry key="S30" value="5.498170093471258E-4" />
-      <entry key="S60" value="0.02349763824065371" />
-      <entry key="M2" value="0.16219571871554186" />
-      <entry key="M5" value="0.7666090532148166" />
-      <entry key="M10" value="1.7410696300632351" />
-      <entry key="M15" value="2.434060889931003" />
-      <entry key="M30" value="3.774668470579784" />
-      <entry key="H1" value="5.856037251157068" />
-      <entry key="H2" value="9.315716490012557" />
-      <entry key="H4" value="13.760559147373003" />
-      <entry key="D1" value="29.288972390556978" />
-      <entry key="W1" value="38.8319733026484" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="2.7426429753049927E-142" />
+      <entry key="S5" value="3.168331279393276E-57" />
+      <entry key="S10" value="7.747993545470814E-29" />
+      <entry key="S30" value="6.871427251704547E-10" />
+      <entry key="S60" value="4.047812504134994E-5" />
+      <entry key="M2" value="0.010590757900960356" />
+      <entry key="M5" value="0.3590227688521225" />
+      <entry key="M10" value="1.4092617582648317" />
+      <entry key="M15" value="2.336159156404981" />
+      <entry key="M30" value="4.097008969258879" />
+      <entry key="H1" value="6.286801371343112" />
+      <entry key="H2" value="9.964940524694548" />
+      <entry key="H4" value="15.419831787947727" />
+      <entry key="D1" value="34.15712108927672" />
+      <entry key="W1" value="45.41988272943013" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="7.258344207780274E-5" />
-      <entry key="MS500" value="0.14865088937534013" />
-      <entry key="S2" value="0.6209300576757129" />
-      <entry key="S5" value="0.8421120914331761" />
-      <entry key="S10" value="1.3216458994680014" />
-      <entry key="S30" value="4.822294425462954" />
-      <entry key="S60" value="7.981891326094781" />
-      <entry key="M2" value="11.899958618921916" />
-      <entry key="M5" value="25.10780169125347" />
-      <entry key="M10" value="49.88350572050165" />
-      <entry key="M15" value="68.46119543844905" />
-      <entry key="M30" value="105.5529036593691" />
-      <entry key="H1" value="162.08594917375822" />
-      <entry key="H2" value="251.60111640808674" />
-      <entry key="H4" value="369.67778996041056" />
-      <entry key="D1" value="693.221953569068" />
-      <entry key="W1" value="845.3851194250864" />
+      <entry key="MS100" value="0.04181023608706601" />
+      <entry key="MS500" value="0.5299763916986409" />
+      <entry key="S2" value="0.8532260981120674" />
+      <entry key="S5" value="0.9384813627165387" />
+      <entry key="S10" value="0.9687524775279487" />
+      <entry key="S30" value="0.9894737548416155" />
+      <entry key="S60" value="0.9949927401682683" />
+      <entry key="M2" value="1.0499788987604664" />
+      <entry key="M5" value="2.623297700567557" />
+      <entry key="M10" value="7.62635861769047" />
+      <entry key="M15" value="12.39521066575075" />
+      <entry key="M30" value="24.499565354239433" />
+      <entry key="H1" value="57.01817889365758" />
+      <entry key="H2" value="138.73585164305308" />
+      <entry key="H4" value="275.32567089392705" />
+      <entry key="D1" value="683.2369573558174" />
+      <entry key="W1" value="875.6023332816376" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -153,7 +129,7 @@
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultAutoModeForALLUsers.v1": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "node.js.detected.package.eslint": "true",
@@ -222,7 +198,7 @@
       <workItem from="1783792428619" duration="2863000" />
       <workItem from="1783795324441" duration="245000" />
       <workItem from="1783795587676" duration="676000" />
-      <workItem from="1783796289371" duration="36516000" />
+      <workItem from="1783796289371" duration="43346000" />
     </task>
     <servers />
   </component>

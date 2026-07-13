@@ -11,7 +11,6 @@ pub struct NewTaskForm {
 }
 
 impl NewTaskForm {
-
     pub fn show(
         &mut self,
         ctx: &egui::Context,
@@ -21,68 +20,69 @@ impl NewTaskForm {
 
         egui::Window::new("New Task")
             .show(ctx, |ui| {
+                egui::Grid::new("new_task_grid")
+                    .striped(true)
+                    .show(ui, |ui| {
+                        ui.label("Title");
+                        ui.text_edit_singleline(&mut self.title);
+                        ui.end_row();
 
-            egui::Grid::new("new_task_grid")
-                .striped(true)
-                .show(ui, |ui| {
+                        ui.label("Problem URL");
+                        ui.text_edit_singleline(&mut self.problem_url);
+                        ui.end_row();
 
-                    ui.label("Title");
-                    ui.text_edit_singleline(&mut self.title);
-                    ui.end_row();
+                        ui.label("Difficulty");
+                        egui::ComboBox::from_label("")
+                            .selected_text(self.difficulty.to_string())
+                            .show_ui(ui, |ui| {
+                                ui.selectable_value(
+                                    &mut self.difficulty,
+                                    Difficulty::Unknown,
+                                    "Unknown",
+                                );
+                                ui.selectable_value(
+                                    &mut self.difficulty,
+                                    Difficulty::Easy,
+                                    "Easy",
+                                );
+                                ui.selectable_value(
+                                    &mut self.difficulty,
+                                    Difficulty::Medium,
+                                    "Medium",
+                                );
+                                ui.selectable_value(
+                                    &mut self.difficulty,
+                                    Difficulty::Hard,
+                                    "Hard",
+                                );
+                            });
+                        ui.end_row();
 
-                    ui.label("Problem URL");
-                    ui.text_edit_singleline(&mut self.problem_url);
-                    ui.end_row();
-
-                    ui.label("Difficulty");
-                    egui::ComboBox::from_label("")
-                        .selected_text(self.difficulty.to_string())
-                        .show_ui(ui, |ui| {
-                            ui.selectable_value(
-                                &mut self.difficulty,
-                                Difficulty::Unknown,
-                                "Unknown",
-                            );
-                            ui.selectable_value(
-                                &mut self.difficulty,
-                                Difficulty::Easy,
-                                "Easy",
-                            );
-                            ui.selectable_value(
-                                &mut self.difficulty,
-                                Difficulty::Medium,
-                                "Medium",
-                            );
-                            ui.selectable_value(
-                                &mut self.difficulty,
-                                Difficulty::Hard,
-                                "Hard",
-                            );
-                        });
-                    ui.end_row();
-
-                    ui.label("Project Path");
-                    ui.text_edit_singleline(&mut self.project_path);
-                    ui.end_row();
-                });
+                        ui.label("Project Path");
+                        ui.text_edit_singleline(&mut self.project_path);
+                        ui.end_row();
+                    });
 
                 ui.separator();
 
                 ui.horizontal(|ui| {
+                    if ui.button("Cancel").clicked() {
+                        window_status = self.cancel();
+                    }
 
-                if ui.button("Cancel").clicked() {
-                    window_status = self.cancel();
-                }
+                    if ui.button("Create").clicked() {
+                        let task = self.build_task();
+                        board.add_task(task);
+                        window_status = WindowStatus::Close;
+                    }
 
-                if ui.button("Create").clicked() {
-                    window_status =self.create(board);
-                }
-
-                if ui.button("Create More").clicked() {
-                    window_status = self.create_more(board);
-                }
-            })
-        });
+                    if ui.button("Create More").clicked() {
+                        let task = self.build_task();
+                        board.add_task(task);
+                        window_status = WindowStatus::Open;
+                    }
+                })
+            });
         window_status
     }
 
@@ -107,17 +107,7 @@ impl NewTaskForm {
         WindowStatus::Close
     }
 
-    fn create(&mut self, board: &mut Board)-> WindowStatus {
-        self.create_task(board);
-        WindowStatus::Close
-    }
-
-    fn create_more(&mut self, board: &mut Board) -> WindowStatus {
-        self.create_task(board);
-        WindowStatus::Open
-    }
-
-    fn create_task(&mut self, board: &mut Board) {
+    fn build_task(&mut self) -> Task {
         let difficulty = std::mem::replace(
             &mut self.difficulty,
             Difficulty::Unknown,
@@ -128,7 +118,13 @@ impl NewTaskForm {
             difficulty,
             &self.project_path,
         );
-        board.add_task(task);
         self.clear();
+        task
+    }
+
+    fn create_task(&mut self, board: &mut Board, status: WindowStatus) -> WindowStatus {
+        let task = self.build_task();
+        board.add_task(task);
+        status
     }
 }
