@@ -4,6 +4,7 @@ use crate::model::column_id::ColumnId;
 use crate::model::tasks::Task;
 use crate::model::task_draft::TaskDraft;
 use crate::model::task_id::TaskId;
+use crate::storage::board_loader::BoardLoader;
 
 pub struct Board {
     columns: HashMap<ColumnId, Column>,
@@ -12,13 +13,17 @@ pub struct Board {
 }
 
 impl Board {
-
-    pub fn new() -> Self {
+    
+    pub(crate) fn empty() -> Self {
         Self {
             columns: HashMap::new(),
-            column_order: vec![],
+            column_order: Vec::new(),
             tasks: HashMap::new(),
         }
+    }
+
+    pub fn new() -> Self {
+        BoardLoader::load()
     }
 
     pub fn add_column(

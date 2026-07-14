@@ -11,18 +11,18 @@ use uuid::Uuid;
     Deserialize
 )]
 
-pub struct ColumnId(String);
+pub struct ColumnId(Uuid);
 
 impl ColumnId {
     pub fn new() -> Self {
         Self(
             Uuid::new_v4()
-                .to_string()
         )
     }
     pub fn from_static(value: &str) -> Self {
         Self(
-            value.to_string()
+            Uuid::parse_str(value)
+            .expect("Invalid ColumnId")
         )
     }
 }
