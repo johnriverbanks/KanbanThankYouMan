@@ -8,7 +8,9 @@ pub struct KanbanThankYouMan {
 }
 
 impl KanbanThankYouMan {
-    pub fn new(_cc: &eframe::CreationContext<'_>) -> Self {
+    pub fn new(
+        _cc: &eframe::CreationContext<'_>
+    ) -> Self {
         Self {
             board: Board::new(),
             new_task_form: None,
@@ -27,26 +29,43 @@ impl eframe::App for KanbanThankYouMan {
             ui.horizontal(|ui| {
                 for column in self.board.columns() {
                     ui.group(|ui| {
-                        ui.heading(column.name());
+                        ui.heading(
+                            column.name()
+                        );
 
-                        for task in column.task() {
-                            ui.label(task.title());
+                        for task_id in column.tasks() {
+                            if let Some(task) = self.board.task(task_id) {
+                                ui.label(task.title());
+                            }
                         }
                     });
                 }
             });
 
             if ui.button("Add Task").clicked() {
-                self.new_task_form = Some(NewTaskForm::new());
+                self.new_task_form = Some(
+                    NewTaskForm::new()
+                );
             }
         });
 
-        let status = if let Some(form) = &mut self.new_task_form {
-            Some(form.show(ui.ctx(), &mut self.board))
+        let status = if let Some(
+            form
+        ) = &mut self.new_task_form {
+            Some(
+                form.show(
+                    ui.ctx(), &mut self.board
+                )
+            )
         } else {
             None
         };
-        if matches!(status, Some(WindowStatus::Close)) {
+        if matches!(
+            status,
+            Some(
+                WindowStatus::Close
+            )
+        ) {
             self.new_task_form = None;
         }
     }

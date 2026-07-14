@@ -1,6 +1,12 @@
+use serde::{Deserialize, Serialize};
 use std::fmt;
 
-#[derive(PartialEq)]
+#[derive(
+    PartialEq,
+    Serialize,
+    Deserialize
+)]
+
 pub enum Difficulty {
     Easy,
     Medium,

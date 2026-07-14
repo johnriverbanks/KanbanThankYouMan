@@ -1,13 +1,20 @@
 use crate::assets::colour::Colour;
-use crate::model::task::Task;
+use crate::model::column_id::ColumnId;
+use crate::model::task_id::TaskId;
+use crate::model::tasks::Task;
 
 pub struct Column {
+    id: ColumnId,
     name: String,
     colour: Colour,
-    task: Vec<Task>,
+    tasks: Vec<TaskId>,
 }
 
 impl Column {
+
+    pub fn id(&self) -> &ColumnId {
+        &self.id
+    }
 
     pub fn name(&self) -> &str {
         self.name.as_str()
@@ -17,20 +24,39 @@ impl Column {
         &self.colour
     }
 
-    pub fn task(&self) -> &[Task] {
-        self.task.as_slice()
+    pub fn tasks(&self) -> &[TaskId] {
+        self.tasks.as_slice()
     }
 
-    pub fn new(name: &str, colour: Colour) -> Self {
+    pub fn new(
+        id: ColumnId,
+        name: String,
+        colour: Colour
+    ) -> Self {
         Self {
-            name: name.to_string(),
+            id,
+            name,
             colour,
-            task: vec![],
+            tasks: Vec::new(),
         }
     }
 
-    pub fn add_task(&mut self, task: Task) {
-        self.task.push(task);
+    pub fn create(
+        name: &str,
+        colour: Colour,
+    ) -> Self {
+        Self{
+            id: ColumnId::new(),
+            name: name.to_string(),
+            colour,
+            tasks: Vec::new(),
+        }
+    }
+
+    pub fn add_task(
+        &mut self, task_id: TaskId
+    ) {
+        self.tasks.push(task_id);
     }
 
 }

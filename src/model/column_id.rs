@@ -4,7 +4,6 @@ use uuid::Uuid;
 #[derive(
     Debug,
     Clone,
-    Copy,
     PartialEq,
     Eq,
     Hash,
@@ -12,13 +11,18 @@ use uuid::Uuid;
     Deserialize
 )]
 
-pub struct TaskId(Uuid);
+pub struct ColumnId(String);
 
-impl TaskId {
-
-    pub(crate) fn new() -> Self {
+impl ColumnId {
+    pub fn new() -> Self {
         Self(
             Uuid::new_v4()
+                .to_string()
+        )
+    }
+    pub fn from_static(value: &str) -> Self {
+        Self(
+            value.to_string()
         )
     }
 }

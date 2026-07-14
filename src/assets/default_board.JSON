@@ -1,0 +1,30 @@
+{
+  "columns": [
+    {
+      "id": "today",
+      "name": "Today",
+      "colour": "Blue"
+    },
+    {
+      "id": "unresolved",
+      "name": "Unresolved",
+      "colour": "Red"
+    },
+    {
+      "id": "review",
+      "name": "Needs Review",
+      "colour": "Amber"
+    },
+    {
+      "id": "complete",
+      "name": "Complete",
+      "colour": "Green"
+    }
+  ],
+  "column_order": [
+    "today",
+    "unresolved",
+    "review",
+    "complete"
+  ]
+}

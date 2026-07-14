@@ -77,12 +77,12 @@ impl NewTaskForm {
                     }
 
                     if ui.button("Create").clicked() {
-                        self.create_task(board);
+                        self.submit_task(board);
                         window_status = WindowStatus::Close;
                     }
 
                     if ui.button("Create More").clicked() {
-                        self.create_task(board);
+                        self.submit_task(board);
                     }
                 })
             });
@@ -111,8 +111,10 @@ impl NewTaskForm {
         self.clear();
     }
 
-    fn create_task(&mut self, board: &mut Board,) {
-        board.add_task(self.build_task_draft());
+    fn submit_task(&mut self, board: &mut Board,) {
+        board.add_task(
+            self.build_task_draft(),
+        );
     }
 
     fn build_task_draft(&mut self) -> TaskDraft {
@@ -125,7 +127,7 @@ impl NewTaskForm {
             problem_url: std::mem::take(&mut self.problem_url),
             difficulty,
             project_path: std::mem::take(&mut self.project_path),
-            notes: String::new(),
+            notes: std::mem::take(&mut self.notes),
         }
     }
 }

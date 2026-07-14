@@ -1,30 +1,55 @@
-use crate::assets::colour::Colour;
+use std::collections::HashMap;
 use crate::model::column::Column;
-use crate::model::task::Task;
+use crate::model::column_id::ColumnId;
+use crate::model::tasks::Task;
 use crate::model::task_draft::TaskDraft;
 use crate::model::task_id::TaskId;
 
 pub struct Board {
-    columns: Vec<Column>,
+    columns: HashMap<ColumnId, Column>,
+    column_order: Vec<ColumnId>,
+    tasks: HashMap<TaskId, Task>,
 }
 
 impl Board {
-    pub fn columns(&self) -> &[Column] {
-        &self.columns.as_slice()
-    }
 
-    pub(crate) fn new() -> Self {
+    pub fn new() -> Self {
         Self {
-            columns: vec![
-                Column::new("Today", Colour::Blue),
-                Column::new("Unresolved", Colour::Red),
-                Column::new("Needs Review", Colour::Amber),
-                Column::new("Solved!", Colour::Green),
-            ],
+            columns: HashMap::new(),
+            column_order: vec![],
+            tasks: HashMap::new(),
         }
     }
 
-    fn create_task(&self, draft: TaskDraft) -> Task {
+    pub fn add_column(
+        &mut self,
+        column: Column,
+    ) {
+        let id = column.id().clone();
+        self.column_order.push(
+            id.clone()
+        );
+        self.columns.insert(
+            id,
+            column
+        );
+    }
+
+    pub fn columns(&self) -> impl Iterator<Item = &Column> {
+        self.column_order
+            .iter()
+            .filter_map(
+                |id| self.columns.get(id)
+            )
+    }
+
+    pub(crate) fn task(&self, id: &TaskId) -> Option<&Task> {
+        self.tasks.get(id)
+    }
+
+    fn create_task(
+        draft: TaskDraft
+    ) -> Task {
         Task::new(
             TaskId::new(),
             draft.title,
@@ -35,8 +60,24 @@ impl Board {
         )
     }
 
-    pub fn add_task(&mut self, draft: TaskDraft) {
-        let task = self.create_task(draft);
-        self.columns[1].add_task(task);
+    pub fn add_task(
+        &mut self,
+        draft: TaskDraft,
+    )
+    {
+        let task = Task::new(
+            TaskId::new(),
+            draft.title,
+            draft.problem_url,
+            draft.difficulty,
+            draft.project_path,
+            draft.notes,
+        );
+            let id = task.id();
+        self.tasks.insert(id, task);
+        self.columns
+            .get_mut(&ColumnId::from_static("unresolved"))
+            .expect("column not found")
+            .add_task(id);
     }
 }
