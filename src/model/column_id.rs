@@ -10,7 +10,6 @@ use uuid::Uuid;
     Serialize,
     Deserialize
 )]
-
 pub struct ColumnId(Uuid);
 
 impl ColumnId {
@@ -19,7 +18,9 @@ impl ColumnId {
             Uuid::new_v4()
         )
     }
-    pub fn from_static(value: &str) -> Self {
+    pub fn parse_column_id(
+        value: &str
+    ) -> Self {
         Self(
             Uuid::parse_str(value)
             .expect("Invalid ColumnId")

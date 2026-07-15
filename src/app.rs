@@ -1,6 +1,7 @@
 use crate::model::board::Board;
 use crate::ui::new_task_form::NewTaskForm;
 use crate::ui::window_status::WindowStatus;
+use crate::storage::board_loader::BoardLoader;
 
 pub struct KanbanThankYouMan {
     board: Board,
@@ -12,7 +13,7 @@ impl KanbanThankYouMan {
         _cc: &eframe::CreationContext<'_>
     ) -> Self {
         Self {
-            board: Board::new(),
+            board: BoardLoader::load(),
             new_task_form: None,
         }
     }

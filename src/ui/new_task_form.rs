@@ -112,9 +112,9 @@ impl NewTaskForm {
     }
 
     fn submit_task(&mut self, board: &mut Board,) {
-        board.add_task(
-            self.build_task_draft(),
-        );
+        if let Err(err) = board.add_task(self.build_task_draft()) {
+            eprintln!("Failed to create task: {:?}", err);
+        }
     }
 
     fn build_task_draft(&mut self) -> TaskDraft {

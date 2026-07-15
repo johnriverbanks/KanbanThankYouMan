@@ -1,5 +1,7 @@
 use crate::assets::colour::Colour;
+use crate::model::column_error::ColumnError;
 use crate::model::column_id::ColumnId;
+use crate::model::task_draft::TaskDraft;
 use crate::model::task_id::TaskId;
 use crate::model::tasks::Task;
 
@@ -59,4 +61,15 @@ impl Column {
         self.tasks.push(task_id);
     }
 
+    pub fn remove_task(
+        &mut self,
+        task_id: &TaskId,
+    ) -> Result<(), ColumnError> {
+        let index = self.tasks
+            .iter()
+            .position(|id| id == task_id)
+            .ok_or(ColumnError::TaskNotFound)?;
+        self.tasks.remove(index);
+        Ok(())
+    }
 }

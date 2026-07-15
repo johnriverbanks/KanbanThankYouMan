@@ -1,16 +1,20 @@
+use std::collections::HashMap;
 use std::fs;
-use crate::model::board::Board;
-use crate::model::column::Column;
-use crate::model::column_id::ColumnId;
-use crate::assets::colour::Colour;
 
 use serde::Deserialize;
+
+use crate::model::board::Board;
+use crate::assets::colour::Colour;
+use crate::model::column::Column;
+use crate::model::column_id::ColumnId;
 
 pub struct BoardLoader;
 
 #[derive(Deserialize)]
 struct BoardConfig {
-    columns: Vec<ColumnConfig>
+    default_column: String,
+    columns: Vec<ColumnConfig>,
+    column_order: Vec<String>,
 }
 
 #[derive(Deserialize)]
@@ -39,26 +43,44 @@ impl BoardLoader {
         )
             .expect("Failed to parse default board");
 
-        let mut board = Board::empty();
+        let mut columns = HashMap::new();
 
         for column in config.columns {
-            board.add_column(
+            let id = ColumnId::parse_column_id(&column.id);
+            columns.insert(
+                id.clone(),
                 Column::new(
-                    ColumnId::from_static(
-                        &column.id
-                    ),
+                    id,
                     column.name,
-                    column.colour
-                )
+                    column.colour,
+                ),
             );
         }
-        board
+
+        let column_order = config
+            .column_order
+            .into_iter()
+            .map(|id| ColumnId::parse_column_id(&id))
+            .collect();
+
+        let default_column = ColumnId::parse_column_id(
+            &config.default_column,
+        );
+
+        Board::from_config(
+            columns,
+            column_order,
+            default_column,
+        )
+            .expect("Invalid board configuration")
     }
 
     fn load_custom_board() -> Board {
         todo!()
-    }
-    fn custom_board_exists(&self) -> bool {
-        false
-    }
-}
+            }
+            fn custom_board_exists(&self) -> bool {
+                std::path::Path::new(
+                    "./board.json"
+                ).exists()
+            }
+        }
