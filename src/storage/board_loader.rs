@@ -48,8 +48,8 @@ impl BoardLoader {
         for column in config.columns {
             let id = ColumnId::parse_column_id(&column.id);
             columns.insert(
-                id.clone(),
-                Column::new(
+                id,
+                Column::create(
                     id,
                     column.name,
                     column.colour,

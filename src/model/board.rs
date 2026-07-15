@@ -36,11 +36,11 @@ impl Board {
         column: Column,
     ) -> Result<(), BoardError> {
         //Error Here
-        let id = column.id().clone();
+        let id = column.id();
         if self.columns.contains_key(&id) {
             return Err(BoardError::DuplicateColumnId)
         }
-        self.column_order.push(id.clone());
+        self.column_order.push(id);
         self.columns.insert(id, column);
         Ok(())
     }

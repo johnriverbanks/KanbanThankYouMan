@@ -3,6 +3,7 @@ use uuid::Uuid;
 
 #[derive(
     Debug,
+    Copy,
     Clone,
     PartialEq,
     Eq,

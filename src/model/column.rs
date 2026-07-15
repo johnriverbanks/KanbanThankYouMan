@@ -1,9 +1,7 @@
 use crate::assets::colour::Colour;
 use crate::model::column_error::ColumnError;
 use crate::model::column_id::ColumnId;
-use crate::model::task_draft::TaskDraft;
 use crate::model::task_id::TaskId;
-use crate::model::tasks::Task;
 
 pub struct Column {
     id: ColumnId,
@@ -14,8 +12,8 @@ pub struct Column {
 
 impl Column {
 
-    pub fn id(&self) -> &ColumnId {
-        &self.id
+    pub fn id(&self) -> ColumnId {
+        self.id
     }
 
     pub fn name(&self) -> &str {
@@ -30,7 +28,7 @@ impl Column {
         self.tasks.as_slice()
     }
 
-    pub fn new(
+    pub fn create(
         id: ColumnId,
         name: String,
         colour: Colour
@@ -38,18 +36,6 @@ impl Column {
         Self {
             id,
             name,
-            colour,
-            tasks: Vec::new(),
-        }
-    }
-
-    pub fn create(
-        name: &str,
-        colour: Colour,
-    ) -> Self {
-        Self{
-            id: ColumnId::new(),
-            name: name.to_string(),
             colour,
             tasks: Vec::new(),
         }
