@@ -58,4 +58,23 @@ impl Column {
         self.tasks.remove(index);
         Ok(())
     }
+
+    pub fn position_of(
+        &self,
+        task_id: &TaskId,
+    ) -> Option<usize> {
+        self.tasks.iter().position(|id| id == task_id)
+    }
+
+    pub fn insert_task(
+        &mut self,
+        index: usize,
+        task_id: TaskId,
+    ) -> Result<(), ColumnError> {
+        if index > self.tasks.len() {
+            return Err(ColumnError::InvalidPosition);
+        }
+        self.tasks.insert(index, task_id);
+        Ok(())
+    }
 }

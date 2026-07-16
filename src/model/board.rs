@@ -137,4 +137,85 @@ impl Board {
 
         Ok(())
     }
+
+    fn column_of_task(
+        &self,
+        task_id: &TaskId,
+    ) -> Option<ColumnId> {
+        self.columns
+            .iter()
+            .find_map(|(id, column)| {
+                column.position_of(task_id).map(|_| *id)
+            })
+    }
+
+    fn move_task_between_columns(
+        &mut self,
+        task_id: TaskId,
+        source_id: ColumnId,
+        destination_id: ColumnId,
+        index: usize,
+    ) -> Result<(), BoardError> {
+        {
+            let source = self.columns
+                .get_mut(&source_id)
+                .ok_or(BoardError::ColumnNotFound)?;
+            source.remove_task(&task_id)?;
+        }
+        {
+            let destination = self.columns
+                .get_mut(&destination_id)
+                .ok_or(BoardError::ColumnNotFound)?;
+            destination.insert_task(index, task_id)?;
+        }
+        Ok(())
+    }
+
+    fn reorder_task(
+        &mut self,
+        task_id: TaskId,
+        column_id: ColumnId,
+        index: usize,
+    ) -> Result<(), BoardError> {
+
+        let column = self.columns
+            .get_mut(&column_id)
+            .ok_or(BoardError::ColumnNotFound)?;
+
+        column.remove_task(&task_id)?;
+        column.insert_task(index, task_id)?;
+
+        Ok(())
+    }
+
+    pub fn move_task(
+        &mut self,
+        task_id: TaskId,
+        destination_id: ColumnId,
+        index: usize,
+    ) -> Result<(), BoardError> {
+        if !self.tasks.contains_key(&task_id) {
+            return Err(BoardError::TaskNotFound);
+        }
+        if !self.columns.contains_key(&destination_id) {
+            return Err(BoardError::ColumnNotFound);
+        }
+        let source_id = self
+            .column_of_task(&task_id)
+            .ok_or(BoardError::TaskNotFound)?;
+        if source_id == destination_id {
+            self.reorder_task(
+                task_id,
+                source_id,
+                index,
+            )
+        } else {
+            self.move_task_between_columns(
+                task_id,
+                source_id,
+                destination_id,
+                index,
+            )
+        }
+    }
 }
