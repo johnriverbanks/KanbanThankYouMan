@@ -10,6 +10,7 @@ pub struct Board {
     columns: HashMap<ColumnId, Column>,
     column_order: Vec<ColumnId>,
     tasks: HashMap<TaskId, Task>,
+    task_locations: HashMap<TaskId, ColumnId>,
     default_column: ColumnId,
 }
 
@@ -27,6 +28,7 @@ impl Board {
             columns,
             column_order,
             tasks: HashMap::new(),
+            task_locations: HashMap::new(),
             default_column,
         })
     }
@@ -135,6 +137,9 @@ impl Board {
             .ok_or(BoardError::ColumnNotFound)?
             .add_task(id);
 
+        self.task_locations
+            .insert(id, self.default_column);
+
         Ok(())
     }
 
@@ -142,11 +147,9 @@ impl Board {
         &self,
         task_id: &TaskId,
     ) -> Option<ColumnId> {
-        self.columns
-            .iter()
-            .find_map(|(id, column)| {
-                column.position_of(task_id).map(|_| *id)
-            })
+        self.task_locations
+            .get(task_id)
+            .copied()
     }
 
     fn move_task_between_columns(
@@ -168,6 +171,8 @@ impl Board {
                 .ok_or(BoardError::ColumnNotFound)?;
             destination.insert_task(index, task_id)?;
         }
+        self.task_locations
+            .insert(task_id, destination_id);
         Ok(())
     }
 
@@ -182,8 +187,20 @@ impl Board {
             .get_mut(&column_id)
             .ok_or(BoardError::ColumnNotFound)?;
 
+        let current_index = column
+            .position_of(&task_id)
+            .ok_or(BoardError::ColumnNotFound)?;
+
         column.remove_task(&task_id)?;
-        column.insert_task(index, task_id)?;
+
+        let adjusted_index =
+            if index > current_index {
+                index - 1
+            } else {
+                index
+            };
+
+        column.insert_task(adjusted_index, task_id)?;
 
         Ok(())
     }
@@ -193,21 +210,26 @@ impl Board {
         task_id: TaskId,
         destination_id: ColumnId,
         index: usize,
+        adjusted_index: usize,
     ) -> Result<(), BoardError> {
+
         if !self.tasks.contains_key(&task_id) {
             return Err(BoardError::TaskNotFound);
         }
+
         if !self.columns.contains_key(&destination_id) {
             return Err(BoardError::ColumnNotFound);
         }
+
         let source_id = self
             .column_of_task(&task_id)
             .ok_or(BoardError::TaskNotFound)?;
+
         if source_id == destination_id {
             self.reorder_task(
                 task_id,
                 source_id,
-                index,
+                adjusted_index,
             )
         } else {
             self.move_task_between_columns(
@@ -218,4 +240,42 @@ impl Board {
             )
         }
     }
+
+    pub fn remove_task(
+        &mut self,
+        task_id: TaskId,
+    ) -> Result<Task, BoardError> {
+
+        let column_id = self
+            .column_of_task(&task_id)
+            .ok_or(BoardError::TaskNotFound)?;
+
+        let column = self.columns
+            .get_mut(&column_id)
+            .ok_or(BoardError::ColumnNotFound)?;
+        column.remove_task(&task_id)?;
+
+        self.task_locations.remove(&task_id);
+
+        let task = self.tasks
+            .remove(&task_id)
+            .ok_or(BoardError::TaskNotFound)?;
+
+        Ok(task)
+    }
+
+    pub fn edit_task(
+        &mut self,
+        task_id: TaskId,
+        draft: TaskDraft,
+    ) -> Result<(), BoardError> {
+        let task = self.tasks
+        .get_mut(&task_id)
+        .ok_or(BoardError::TaskNotFound)?;
+
+    task.update(draft);
+
+    Ok(())
+    }
+
 }

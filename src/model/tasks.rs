@@ -1,5 +1,6 @@
 use serde::{Deserialize, Serialize};
 use crate::model::difficulty::Difficulty;
+use crate::model::task_draft::TaskDraft;
 use crate::model::task_id::TaskId;
 
 #[derive(
@@ -58,5 +59,16 @@ impl Task {
             project_path,
             notes,
         }
+    }
+
+    pub fn update(
+        &mut self,
+        draft: TaskDraft,
+    ) {
+        self.title = draft.title;
+        self.problem_url = draft.problem_url;
+        self.difficulty = draft.difficulty;
+        self.project_path = draft.project_path;
+        self.notes = draft.notes;
     }
 }
